@@ -86,18 +86,22 @@ const Result = ({ query }) => {
     setTotal(count);
   };
 
+  useEffect(() => {
+    listFilm && setIsLoading(false);
+  }, [listFilm]);
+
   return (
     <div>
-      {listFilm ? (
+      {!isLoading ? (
         <div>
           <div>
             {query &&
               (total >= 2 ? (
                 <CountResult>
-                  Found {total} results. Here are top 10 of its
+                  Found {total} results. Here are top of its
                 </CountResult>
               ) : total == 1 ? (
-                <CountResult>Found {total} results. Here you are</CountResult>
+                <CountResult>Found {total} result. Here you are</CountResult>
               ) : (
                 <CountResult>Found nothing!</CountResult>
               ))}
@@ -112,7 +116,11 @@ const Result = ({ query }) => {
           </Container>
         </div>
       ) : (
-        <div />
+        <div class="text-center mt-5">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
       )}
     </div>
   );
